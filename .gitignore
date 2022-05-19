@@ -10,5 +10,6 @@ Desktop.ini
 
 # npm
 node_modules
+.vscode
 *.log
 *.gz

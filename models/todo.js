@@ -7,4 +7,4 @@ const todoSchema = new Schema({
   },
   done: Boolean
 })
-module.export = mongoose.model('Todo', todoSchema)
+module.exports = mongoose.model('YS-Todo', todoSchema)
