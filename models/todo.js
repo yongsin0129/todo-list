@@ -7,4 +7,8 @@ const todoSchema = new Schema({
   },
   done: Boolean
 })
+/**
+ * 資料庫 name : todo-list
+ * Collection name : YS-Todo
+ */
 module.exports = mongoose.model('YS-Todo', todoSchema)

@@ -1,1 +1,4 @@
 <h1>hello hbs</h1>
+{{#each todos}}
+  <h2>{{this.name}} <span>done: {{this.done}}</span></h2>
+{{/each}}
