@@ -8,15 +8,23 @@ const port = 3000
 app.engine('hbs', exphbs({ extname: 'hbs' }))
 app.set('view engine', 'hbs')
 
-mongoose.connect(process.env.MONGODB_URI)
-const db = mongoose.connection
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('mongodb connected')
+  })
+  .catch(error => {
+    console.log('mongodb error!')
+    console.log(error)
+  })
 
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-db.once('open', () => {
-  console.log('mongodb connected')
-})
+// const db = mongoose.connection
+// db.on('error', () => {
+//   console.log('mongodb error!')
+// })
+// db.once('open', () => {
+//   console.log('mongodb connected')
+// })
 
 app.get('/', (req, res) => {
   Todo.find()
