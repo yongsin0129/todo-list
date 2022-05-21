@@ -5,7 +5,10 @@ const todoSchema = new Schema({
     type: String,
     required: true
   },
-  done: Boolean
+  done: {
+    type: Boolean,
+    default: false
+  }
 })
 /**
  * 資料庫 name : todo-list
