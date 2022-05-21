@@ -53,13 +53,42 @@ app.post('/todos', (req, res) => {
     })
   res.redirect('/')
 })
-// !新增 details 功厲
+// !新增 details 功能
 app.get('/detail/:id', (req, res) => {
   const id = req.params.id
   Todo.findById(id)
     .lean()
     .then(data => {
       res.render('detail', { data })
+    })
+    .catch(error => {
+      console.log('NG !')
+      console.log(error)
+    })
+})
+// ! 新增 Edit 功能
+app.get('/edit/:id', (req, res) => {
+  const id = req.params.id
+  Todo.findById(id)
+    .lean()
+    .then(data => {
+      res.render('edit', { data })
+    })
+    .catch(error => {
+      console.log('NG !')
+      console.log(error)
+    })
+})
+app.post('/edit/:id', (req, res) => {
+  const id = req.params.id
+  const editName = req.body.name
+  Todo.findById(id)
+    // .lean() // !注意 使用 lean 之後就不能用 model類的 method 會導致model.save()失效
+    .then(data => {
+      console.log(editName)
+      data.name = editName
+      data.save()
+      res.redirect('/')
     })
     .catch(error => {
       console.log('NG !')
