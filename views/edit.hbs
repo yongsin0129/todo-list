@@ -3,6 +3,9 @@
   <input type='text' name='name' value='{{{data.name}}}' />
   <button type='submit'>edit</button>
 </form>
+<form action=/delete/{{data._id}} id=`{{data._id}}` method="post" style="display:inline"> 
+  <button type="submit" >delete</button>
+</form>
 <h2>
   <a href="/">back</a>
 </h2>

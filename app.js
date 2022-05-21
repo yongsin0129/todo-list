@@ -46,7 +46,6 @@ app.post('/todos', (req, res) => {
   newTodo
     .save()
     .then(() => {
-      console.log('New Todo has been saved')
     })
     .catch(error => {
       console.log(error)
@@ -85,9 +84,22 @@ app.post('/edit/:id', (req, res) => {
   Todo.findById(id)
     // .lean() // !注意 使用 lean 之後就不能用 model類的 method 會導致model.save()失效
     .then(data => {
-      console.log(editName)
       data.name = editName
       data.save()
+      res.redirect('/')
+    })
+    .catch(error => {
+      console.log('NG !')
+      console.log(error)
+    })
+})
+// ! 新增 delete 功能
+app.post('/delete/:id', (req, res) => {
+  const id = req.params.id
+  Todo.findById(id)
+    // .lean() // !注意 使用 lean 之後就不能用 model類的 method 會導致model.save()失效
+    .then(data => {
+      data.delete()
       res.redirect('/')
     })
     .catch(error => {
