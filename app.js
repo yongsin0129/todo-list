@@ -53,6 +53,19 @@ app.post('/todos', (req, res) => {
     })
   res.redirect('/')
 })
+// !新增 details 功厲
+app.get('/detail/:id', (req, res) => {
+  const id = req.params.id
+  Todo.findById(id)
+    .lean()
+    .then(data => {
+      res.render('detail', { data })
+    })
+    .catch(error => {
+      console.log('NG !')
+      console.log(error)
+    })
+})
 
 app.listen(port, () => {
   console.log(`server is listen on http://localhost:${port}`)

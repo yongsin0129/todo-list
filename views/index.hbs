@@ -1,4 +1,7 @@
 <a href='./todos/new'>create one todo</a>
 {{#each todos}}
-  <h2>{{this.name}} <span style='color:red'>done: {{this.done}}</span></h2>
+  <h2>{{this.name}} 
+  <span style='color:red'>done: {{this.done}}</span>
+  <span><a href=./detail/{{this._id}} id=`{{this._id}}`>details</a></span>
+  </h2>
 {{/each}}
