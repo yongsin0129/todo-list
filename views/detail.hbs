@@ -1,6 +1,9 @@
 <h1>Todo Details</h1>
-<h2>name : {{data.name}}</h2>
-<h2>done : {{data.done}}</h2>
+
+<h2>
+  <input type="checkbox" name="isDone" {{#if data.isDone }} checked {{/if}} disabled>
+name : {{data.name}}
+</h2>
 <h2>id : {{data._id}}</h2>
 <h2>
   <a href=/edit/{{data._id}} id=`{{data._id}}`>edit</a>

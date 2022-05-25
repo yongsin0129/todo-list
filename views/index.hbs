@@ -1,7 +1,8 @@
 <a href='./todos/new'>create one todo</a>
 {{#each todos}}
-  <h2>{{this.name}} 
-  <span style='color:red'>done: {{this.done}}</span>
+  <h2>
+  <input type="checkbox" name="isDone" {{#if this.isDone }} checked {{/if}} disabled>
+  {{this.name}}   
   <span><a href=./detail/{{this._id}} id=`{{this._id}}`>details</a></span>
   <span><a href=./edit/{{this._id}} id=`{{this._id}}`>edit</a></span>
   <form action=./delete/{{this._id}} id=`{{this._id}}` method="post" style="display:inline"> 

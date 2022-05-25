@@ -1,5 +1,6 @@
 <h1>Edit a Todo</h1>
 <form action='/edit/{{data._id}}' method='post'>
+  <input type="checkbox" name="isDone" {{#if data.isDone}} checked {{/if}}>
   <input type='text' name='name' value='{{{data.name}}}' />
   <button type='submit'>edit</button>
 </form>

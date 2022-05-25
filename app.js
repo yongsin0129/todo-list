@@ -45,8 +45,7 @@ app.post('/todos', (req, res) => {
   const newTodo = new Todo({ name: typeName })
   newTodo
     .save()
-    .then(() => {
-    })
+    .then(() => {})
     .catch(error => {
       console.log(error)
     })
@@ -79,12 +78,13 @@ app.get('/edit/:id', (req, res) => {
     })
 })
 app.post('/edit/:id', (req, res) => {
-  const id = req.params.id
-  const editName = req.body.name
+  const { id } = req.params
+  const { name, isDone } = req.body
   Todo.findById(id)
     // .lean() // !注意 使用 lean 之後就不能用 model類的 method 會導致model.save()失效
     .then(data => {
-      data.name = editName
+      data.name = name
+      data.isDone = isDone === 'on'
       data.save()
       res.redirect('/')
     })
@@ -98,8 +98,8 @@ app.post('/delete/:id', (req, res) => {
   const id = req.params.id
   Todo.findById(id)
     // .lean() // !注意 使用 lean 之後就不能用 model類的 method 會導致model.save()失效
-    .then(data => {
-      data.delete()
+    .then(async data => {
+      await data.delete()
       res.redirect('/')
     })
     .catch(error => {
