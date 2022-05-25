@@ -5,7 +5,7 @@
   {{this.name}}   
   <span><a href=./detail/{{this._id}} id=`{{this._id}}`>details</a></span>
   <span><a href=./edit/{{this._id}} id=`{{this._id}}`>edit</a></span>
-  <form action=./delete/{{this._id}} id=`{{this._id}}` method="post" style="display:inline"> 
+  <form action='./delete/{{this._id}}?_method=DELETE' id=`{{this._id}}` method="post" style="display:inline"> 
     <button type="submit" >delete</button>
   </form>
   </h2>

@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars').engine
 const Todo = require('./models/todo')
+const methodOverride = require('method-override')
+
 const app = express()
 const port = 3000
 
@@ -9,6 +11,7 @@ app.engine('hbs', exphbs({ extname: 'hbs' }))
 app.set('view engine', 'hbs')
 
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -31,7 +34,7 @@ mongoose
 app.get('/', (req, res) => {
   Todo.find()
     .lean()
-    .sort({ _id: 'asc' }) // 反之descending
+    .sort({ _id: 'asc' }) // 反之 descending
     .then(data => res.render('index', { todos: data }))
     .catch(error => console.log(error))
 })
@@ -78,7 +81,7 @@ app.get('/edit/:id', (req, res) => {
       console.log(error)
     })
 })
-app.post('/edit/:id', (req, res) => {
+app.put('/edit/:id', (req, res) => {
   const { id } = req.params
   const { name, isDone } = req.body
   Todo.findById(id)
@@ -95,7 +98,7 @@ app.post('/edit/:id', (req, res) => {
     })
 })
 // ! 新增 delete 功能
-app.post('/delete/:id', (req, res) => {
+app.delete('/delete/:id', (req, res) => {
   const id = req.params.id
   Todo.findById(id)
     // .lean() // !注意 使用 lean 之後就不能用 model類的 method 會導致model.save()失效
