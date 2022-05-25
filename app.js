@@ -31,6 +31,7 @@ mongoose
 app.get('/', (req, res) => {
   Todo.find()
     .lean()
+    .sort({ _id: 'asc' }) // 反之descending
     .then(data => res.render('index', { todos: data }))
     .catch(error => console.log(error))
 })
@@ -84,7 +85,7 @@ app.post('/edit/:id', (req, res) => {
     // .lean() // !注意 使用 lean 之後就不能用 model類的 method 會導致model.save()失效
     .then(data => {
       data.name = name
-      data.isDone = isDone === 'on'
+      data.isDone = isDone === 'on' //! 注意 checkbox 的回傳值很特別 是on , 如果沒打勾也不會有回傳值
       data.save()
       res.redirect('/')
     })
