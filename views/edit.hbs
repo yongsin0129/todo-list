@@ -1,12 +1,9 @@
-<h1>Edit a Todo</h1>
-<form action='/edit/{{data._id}}?_method=PUT' method='post'>
-  <input type="checkbox" name="isDone" {{#if data.isDone}} checked {{/if}}>
-  <input type='text' name='name' value='{{{data.name}}}' />
-  <button type='submit'>edit</button>
+<form action="/todos/{{ todo._id }}?_method=PUT" method="POST" style="display: inline;">
+  <div class="input-group">
+    <div class="input-group-text">
+      <input type="checkbox" class="form-check-input mt-0" name="isDone" {{#if todo.isDone }} checked {{/if}}>
+    </div>
+    <input class="form-control" type="text" placeholder="name" name="name" value="{{ todo.name }}">
+    <button class="btn btn-success" type="submit">Save</button>
+  </div>
 </form>
-<form action='/delete/{{data._id}}?_method=DELETE' id=`{{data._id}}` method="post" style="display:inline"> 
-  <button type="submit" >delete</button>
-</form>
-<h2>
-  <a href="/">back</a>
-</h2>

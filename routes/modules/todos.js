@@ -36,8 +36,8 @@ router.get('/todos/:id/edit', (req, res) => {
   const id = req.params.id
   Todo.findById(id)
     .lean()
-    .then(data => {
-      res.render('edit', { data })
+    .then(todo => {
+      res.render('edit', { todo })
     })
     .catch(error => {
       console.log('NG !')
