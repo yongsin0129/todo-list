@@ -4,7 +4,9 @@ const methodOverride = require('method-override')
 const router = require('./routes')
 require('./config/mongoose')
 const app = express()
-const port = 3000
+// 如果在 Heroku 環境則使用 process.env.PORT
+// 否則為本地環境，使用 3000
+const PORT = process.env.PORT || 3000
 
 // 設定模板引擎
 app.engine('hbs', exphbs({ extname: 'hbs' }))
@@ -18,6 +20,6 @@ app.use(methodOverride('_method'))
 // 將 request 導入路由器
 app.use(router)
 
-app.listen(port, () => {
-  console.log(`server is listen on http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`APP is listen on http://localhost:${PORT}`)
 })
