@@ -19,7 +19,7 @@ router.post('/todos', (req, res) => {
   res.redirect('/')
 })
 // !新增 details 功能
-router.get('/detail/:id', (req, res) => {
+router.get('/todos/:id', (req, res) => {
   const id = req.params.id
   Todo.findById(id)
     .lean()
@@ -32,7 +32,7 @@ router.get('/detail/:id', (req, res) => {
     })
 })
 // ! 新增 Edit 功能
-router.get('/edit/:id', (req, res) => {
+router.get('/todos/:id/edit', (req, res) => {
   const id = req.params.id
   Todo.findById(id)
     .lean()
@@ -44,7 +44,7 @@ router.get('/edit/:id', (req, res) => {
       console.log(error)
     })
 })
-router.put('/edit/:id', (req, res) => {
+router.put('/todos/:id', (req, res) => {
   const { id } = req.params
   const { name, isDone } = req.body
   Todo.findById(id)
@@ -61,7 +61,7 @@ router.put('/edit/:id', (req, res) => {
     })
 })
 // ! 新增 delete 功能
-router.delete('/delete/:id', (req, res) => {
+router.delete('/todos/:id', (req, res) => {
   const id = req.params.id
   Todo.findById(id)
     // .lean() // !注意 lean 會將 model 物件轉為 plain 的 js 物件資料，不能使用 model 物件的任何 method 及 attr
