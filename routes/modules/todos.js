@@ -23,8 +23,8 @@ router.get('/todos/:id', (req, res) => {
   const id = req.params.id
   Todo.findById(id)
     .lean()
-    .then(data => {
-      res.render('detail', { data })
+    .then(todo => {
+      res.render('detail', { todo })
     })
     .catch(error => {
       console.log('NG !')
