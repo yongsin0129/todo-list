@@ -5,10 +5,12 @@ const router = express.Router()
 // 各種 route 由 modules 統一管理
 const home = require('./modules/home')
 const todos = require('./modules/todos')
+const users = require('./modules/users')
 
 // 準備引入路由模組
 router.use('/', home)
 router.use('/', todos)
+router.use('/users', users)
 
 // 匯出路由器
 module.exports = router
