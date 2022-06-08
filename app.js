@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars').engine
 const methodOverride = require('method-override')
 const router = require('./routes')
 require('./config/mongoose')
+const usePassport = require('./config/passport')
 const app = express()
 // 如果在 Heroku 環境則使用 process.env.PORT
 // 否則為本地環境，使用 3000
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: true }))
 // methodOverride 讓 HTML 的 Form 可以使用 PUT DELETE
 app.use(methodOverride('_method'))
 
+usePassport(app)
 // 將 request 導入路由器
 app.use(router)
 
