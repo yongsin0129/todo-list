@@ -1,4 +1,5 @@
 const express = require('express')
+const session = require('express-session')
 const exphbs = require('express-handlebars').engine
 const methodOverride = require('method-override')
 const router = require('./routes')
@@ -12,6 +13,13 @@ const PORT = process.env.PORT || 3000
 app.engine('hbs', exphbs({ extname: 'hbs' }))
 app.set('view engine', 'hbs')
 
+app.use(
+  session({
+    secret: 'this is my secret',
+    resave: false,
+    saveUninitialized: true
+  })
+)
 // 引入 bodyParser , 4.16 之後不需要另外 install， express 有內建
 app.use(express.urlencoded({ extended: true }))
 // methodOverride 讓 HTML 的 Form 可以使用 PUT DELETE
