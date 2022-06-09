@@ -4,11 +4,12 @@ const Todo = require('../../models/todo')
 
 // ! 主頁
 router.get('/', (req, res) => {
-  Todo.find()
+  const userId = req.user._id // 變數設定
+  Todo.find({ userId }) // 加入查詢條件
     .lean()
-    .sort({ _id: 'asc' }) // 反之 descending
-    .then(data => res.render('index', { todos: data }))
-    .catch(error => console.log(error))
+    .sort({ _id: 'asc' })
+    .then(todos => res.render('index', { todos }))
+    .catch(error => console.error(error))
 })
 
 module.exports = router
