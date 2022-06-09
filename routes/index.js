@@ -7,10 +7,11 @@ const home = require('./modules/home')
 const todos = require('./modules/todos')
 const users = require('./modules/users')
 
+const { authenticator } = require('../middleware/auth')
 // 準備引入路由模組
-router.use('/', home)
-router.use('/', todos)
+router.use('/todos', authenticator, todos)
 router.use('/users', users)
+router.use('/', authenticator, home)
 
 // 匯出路由器
 module.exports = router
