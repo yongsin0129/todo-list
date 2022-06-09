@@ -15,6 +15,10 @@ router.post(
   })
 )
 
+router.get('/register', (req, res) => {
+  res.render('register')
+})
+
 router.post('/register', (req, res) => {
   // 取得註冊表單參數
   const { name, email, password, confirmPassword } = req.body
@@ -44,7 +48,9 @@ router.post('/register', (req, res) => {
     .catch(err => console.log(err))
 })
 
-router.get('/register', (req, res) => {
-  res.render('register')
+router.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('/users/login')
 })
+
 module.exports = router
