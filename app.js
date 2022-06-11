@@ -2,6 +2,9 @@ const express = require('express')
 const session = require('express-session')
 const exphbs = require('express-handlebars').engine
 const methodOverride = require('method-override')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const router = require('./routes')
 require('./config/mongoose')
 const usePassport = require('./config/passport')
@@ -17,7 +20,7 @@ app.set('view engine', 'hbs')
 
 app.use(
   session({
-    secret: 'this is my secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true
   })
