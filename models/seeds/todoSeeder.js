@@ -1,14 +1,37 @@
-const mongoose = require('../../config/mongoose')
+const bcrypt = require('bcryptjs')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const Todo = require('../todo')
-const db = mongoose.connection
-
-db.on('error', () => {
-  console.log('mongodb error!')
-})
+const User = require('../user')
+const db = require('../../config/mongoose').connection
+const SEED_USER = {
+  name: 'root',
+  email: 'root@example.com',
+  password: '123'
+}
 db.once('open', async () => {
+  await User.deleteMany()
   await Todo.deleteMany()
-  for (let i = 0; i < 10; i++) {
-    Todo.create({ name: `todo-list ${i}`, done: false })
-  }
-  console.log('created successfully')
+  console.log('Database has been deleted successfully')
+  bcrypt
+    .genSalt(10)
+    .then(salt => bcrypt.hash(SEED_USER.password, salt))
+    .then(hash =>
+      User.create({
+        name: SEED_USER.name,
+        email: SEED_USER.email,
+        password: hash
+      })
+    )
+    .then(async user => {
+      const userId = user._id
+      for (let i = 0; i < 10; i++) {
+        await Todo.create({ name: `name-${i}`, userId })
+      }
+    })
+    .then(() => {
+      console.log('New Dummy Data has been created successfully.')
+      process.exit()
+    })
 })
